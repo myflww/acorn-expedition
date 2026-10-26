@@ -1,10 +1,12 @@
+![Acorn companions, a branch slingshot and a squirrel storehouse: Acorn Expedition promotional artwork.](assets/promo/hero-forest.png)
+
 # Acorn Expedition · 橡果远征
 
 **Pull back the branch slingshot, send your acorn companions into the forest, and recover the Acorn Kingdom's winter supplies.**
 
 An original physics adventure game independently created by [myflww](https://github.com/myflww). This repository contains the standalone source-available desktop game extracted from Luma. It uses native JavaScript, HTML5 Canvas and Web Audio, with no third-party npm dependencies. Luma, API keys and user accounts are not required.
 
-[简体中文](README.md) · [Attribution](ATTRIBUTION.md) · [Noncommercial license](LICENSE)
+[简体中文](README.md) · [Chinese playing guide](docs/PLAYING.zh-CN.md) · [PDF handbook](docs/Acorn-Expedition-Playbook.zh-CN.pdf) · [Media kit](docs/MEDIA_KIT.md) · [Noncommercial license](LICENSE)
 
 **Source available · Noncommercial use only · Preserve credit to myflww and the original project.** This project uses PolyForm Noncommercial License 1.0.0; it is not OSI-standard open source.
 

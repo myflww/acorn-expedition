@@ -1,0 +1,84 @@
+{
+  "project": "Acorn Expedition / 橡果远征",
+  "author": "myflww",
+  "source": "https://github.com/myflww/acorn-expedition",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "commercialUse": "Not authorized",
+  "date": "2026-10-26",
+  "artDirection": "Cute forest picture-book illustration based on the actual acorn companions, slingshot and squirrel structures.",
+  "notice": "Promotional art is distinct from the unedited screenshots. Preserve attribution and required notices.",
+  "files": [
+    {
+      "file": "promo/hero-forest.png",
+      "kind": "Promotional illustration redrawn with built-in ImageGen",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2616416,
+      "sha256": "996d6d19b482db0885d242deddb144f7a878747ee5f329a39955ed46b77884ba"
+    },
+    {
+      "file": "promo/portrait-expedition.png",
+      "kind": "Promotional illustration redrawn with built-in ImageGen",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2733761,
+      "sha256": "d5c213a8aa9f3745babe6771395644e736450b826779ac05b6f56d66c07cc18f"
+    },
+    {
+      "file": "promo/tactics-skills.png",
+      "kind": "Promotional illustration redrawn with built-in ImageGen",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2477373,
+      "sha256": "7f43ed7f350fa689d2e4f4507f824b9f5c719a157d3fcf6b69e9b8908cb6b9fe"
+    },
+    {
+      "file": "promo/guide-cover.png",
+      "kind": "Promotional illustration redrawn with built-in ImageGen",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2257054,
+      "sha256": "1caca2b069e92728fe102d154f99347993b9219e1d0c32de82d2512093f8faaf"
+    },
+    {
+      "file": "screenshots/menu.png",
+      "kind": "Unedited standalone-game screenshot",
+      "width": 1280,
+      "height": 720,
+      "bytes": 62419,
+      "sha256": "ea9fa50b8cd7f4821a439be4d2a8c7cda1765d01996939e944d4c7ed52128084"
+    },
+    {
+      "file": "screenshots/main-stage.png",
+      "kind": "Unedited standalone-game screenshot",
+      "width": 849,
+      "height": 721,
+      "bytes": 45927,
+      "sha256": "43297e9dafb836355f30508b4d2799649694c3de43e6c4339edbd10ed98ab97d"
+    },
+    {
+      "file": "screenshots/aiming.png",
+      "kind": "Unedited standalone-game screenshot",
+      "width": 849,
+      "height": 721,
+      "bytes": 48349,
+      "sha256": "0864cc1393fe267eba2673f68ef5a0c5f42f91e4364521358826d7ec995807bd"
+    },
+    {
+      "file": "screenshots/mission-panel.png",
+      "kind": "Unedited standalone-game screenshot",
+      "width": 849,
+      "height": 721,
+      "bytes": 58163,
+      "sha256": "4fc0338e82f195d630159797f2caabe8f6a1d22d96793e640d4dcf4352b3681b"
+    },
+    {
+      "file": "screenshots/talent-choice.png",
+      "kind": "Unedited standalone-game screenshot",
+      "width": 1280,
+      "height": 720,
+      "bytes": 61430,
+      "sha256": "ff422cd7aaf5ba9dd0cd521dbf2589ab5651bfdbdee2229fb92e9c61534137ee"
+    }
+  ]
+}

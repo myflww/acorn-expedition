@@ -1,10 +1,12 @@
+![橡果远征：橡宝伙伴与树枝弹弓，向松鼠粮仓出发。](assets/promo/hero-forest.png)
+
 # 橡果远征 · Acorn Expedition
 
 **拉满树枝弹弓，带着橡宝穿过森林，夺回橡心王国的冬粮。**
 
 由 [myflww](https://github.com/myflww) 独立制作的物理弹射冒险游戏。本仓库是从 Luma 中独立整理的桌面游戏源码公开版，使用 HTML5 Canvas、原生 JavaScript 和 Web Audio；运行游戏无需安装 Luma，也不需要 API 密钥或账号。
 
-[English](README.en.md) · [运行与操作](#开始游戏) · [署名与来源](ATTRIBUTION.md) · [非商业使用许可](LICENSE)
+[English](README.en.md) · [玩法手册](docs/PLAYING.zh-CN.md) · [PDF 手册](docs/Acorn-Expedition-Playbook.zh-CN.pdf) · [宣传图片](docs/MEDIA_KIT.md) · [非商业使用许可](LICENSE)
 
 **源码公开 · 仅限非商业使用 · 必须保留原作者 myflww 与原项目来源。** 本项目采用 PolyForm Noncommercial License 1.0.0，属于 source-available，不是 OSI 标准开源许可。
 
@@ -15,6 +17,24 @@
 - 升级与融合天赋，搭配天赋专属橡宝、金橡果补给及星级评价。
 - 分别保存主线、无尽、每日与秘境的关卡起点检查点。
 - 在远征档案中记录图鉴故事、成就、星级、秘境契约和挑战成绩。
+
+![第一关实机画面，展示弹弓、橡宝、松鼠工事与关卡信息。](assets/screenshots/main-stage.png)
+
+*上图为独立浏览器版实机截图。顶部海报为基于游戏角色、材质和弹射玩法重新绘制的宣传插画。*
+
+## 玩法手册与图片
+
+第一次游玩可以先读 [五分钟出发](docs/PLAYING.zh-CN.md#1-五分钟出发)，再按需要查阅橡宝能力、材料与风、天赋、各模式和存档。
+
+| 资料 | 内容 |
+| --- | --- |
+| [中文在线玩法手册](docs/PLAYING.zh-CN.md) | 从瞄准、发射到技能、天赋和秘境的完整说明，配实机截图。 |
+| [中文 PDF 玩法手册](docs/Acorn-Expedition-Playbook.zh-CN.pdf) | 带章节书签、插画封面和实机图解，可下载离线阅读。 |
+| [宣传图与媒体资料](docs/MEDIA_KIT.md) | 横版主海报、竖版远征海报、支点战术图和手册封面。 |
+
+![看准支点，再出手：疾风橡宝与松鼠木石冰据点的宣传插画。](assets/promo/tactics-skills.png)
+
+*宣传插画表达游戏主题，不作为界面截图或精确弹道教程。图片与手册同样仅限非商业使用，分享时保留 myflww 与原项目来源。*
 
 ## 开始游戏
 
