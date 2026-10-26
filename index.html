@@ -1,0 +1,397 @@
+<!doctype html>
+<!-- Copyright 2026 myflww; SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0 -->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; style-src-elem 'self'; style-src-attr 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'none'; media-src 'none'; worker-src 'none'; child-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'none'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="《橡果远征》非商业源码公开桌面游戏：拉满树枝弹弓，探索森林秘境，夺回橡心王国的冬粮。"
+    />
+    <meta name="theme-color" content="#153c2d" />
+    <title>橡果远征 · Acorn Expedition</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23543b27' d='M7 11h18l-2-5H9z'/%3E%3Cpath fill='%23a9673e' d='M8 12c0 10 3 17 8 17s8-7 8-17z'/%3E%3Cpath fill='%23728b55' d='M16 7c0-4 3-6 6-5-1 3-3 5-6 5z'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./src/boot-check.js"></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="brand-bar" aria-label="游戏标题">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="brand-cap"></span>
+            <span class="brand-seed"></span>
+          </div>
+          <div>
+            <p class="eyebrow">MYFLWW · 森林冒险</p>
+            <h1>橡果远征</h1>
+            <p class="brand-lore">橡心王国 · 北境冬粮回收行动</p>
+          </div>
+        </div>
+        <div class="build-chip"><span></span><b id="build-chip-title">橡木营地</b><small id="build-chip-status">远征进度自动保存</small></div>
+      </header>
+
+      <aside id="protocol-notice" class="protocol-notice" role="alert" hidden>
+        <div><strong>请从本地安全入口打开</strong><span>直接双击 HTML 可能无法运行，而且不会共享存档。</span></div>
+        <a href="http://127.0.0.1:4187/">打开 127.0.0.1:4187</a>
+      </aside>
+
+      <section id="game-shell" class="game-frame" data-state="menu">
+        <div class="top-rail">
+          <div class="rail-context">
+            <span class="rail-label">橡心守备队</span>
+            <div id="mode-badge" class="mode-badge">远征营地</div>
+          </div>
+          <div class="rail-actions" aria-label="快捷控制">
+            <button id="mute-button" class="icon-button" type="button" aria-label="切换声音" aria-keyshortcuts="M" title="切换声音 · M">
+              <svg class="ui-icon sound-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9H4Z" />
+                <path class="sound-wave" d="M16 8.2a5 5 0 0 1 0 7.6M18.7 5.6a8.6 8.6 0 0 1 0 12.8" />
+                <path class="mute-slash" d="m5 4 14 16" />
+              </svg><span class="button-copy">声音</span>
+            </button>
+            <button id="pause-button" class="icon-button" type="button" aria-label="暂停游戏" aria-keyshortcuts="P" title="暂停 / 继续 · P">
+              <svg class="ui-icon pause-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path class="pause-glyph" d="M7 5h3v14H7zM14 5h3v14h-3z" />
+                <path class="play-glyph" d="m8 5 11 7-11 7V5Z" />
+              </svg><span class="button-copy">暂停</span>
+            </button>
+            <button id="restart-button" class="icon-button" type="button" aria-label="重开当前关卡" aria-keyshortcuts="R" title="重开本关 · R">
+              <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 8V4m0 0h-4m4 0-3 3a7 7 0 1 0 1.8 7" />
+              </svg><span class="button-copy">重开</span>
+            </button>
+            <button id="settings-button" class="icon-button" type="button" aria-label="打开游戏设置" aria-keyshortcuts="Escape" title="设置与暂停 · Esc">
+              <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h7m4 0h5M4 17h4m4 0h8M11 4v6M8 14v6" />
+              </svg><span class="button-copy">设置</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="viewport-wrap">
+          <canvas
+            id="game-canvas"
+            width="900"
+            height="600"
+            tabindex="0"
+            aria-describedby="game-instructions game-status-text"
+            aria-label="橡果远征游戏画面。拖拽弹弓上的橡果并松开发射。"
+          >橡果远征游戏画面</canvas>
+          <p id="game-status-text" class="sr-only" aria-live="polite">当前位于远征营地主菜单。</p>
+
+          <div id="hud" class="hud" hidden>
+            <div class="hud-primary">
+              <span id="hud-level">主线 1/18</span>
+              <strong id="hud-score">000000</strong>
+            </div>
+            <div class="hud-secondary">
+              <span id="hud-birds">橡果 × 3</span>
+              <span id="hud-condition">风况稳定</span>
+              <span id="hud-talents" role="group" aria-label="已获得天赋" data-count="0"></span>
+            </div>
+          </div>
+
+          <aside
+            id="shot-selector"
+            class="shot-selector"
+            aria-labelledby="shot-selector-title"
+            hidden
+          >
+            <header class="shot-selector-heading">
+              <span class="shot-selector-heading-copy">
+                <strong id="shot-selector-title">待发序列</strong>
+                <small id="shot-selector-hint">需要“战术弹仓”天赋才能换位</small>
+              </span>
+              <button
+                id="shot-selector-toggle"
+                class="shot-selector-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="shot-selector-list"
+              >展开</button>
+            </header>
+            <div
+              id="shot-selector-list"
+              class="shot-selector-list"
+              role="group"
+              aria-label="选择下一枚发射橡果"
+            ></div>
+          </aside>
+
+          <aside
+            id="mission-status-card"
+            class="mission-status-card"
+            aria-labelledby="mission-status-title"
+            hidden
+          >
+            <header class="mission-status-heading">
+              <span class="mission-status-heading-copy">
+                <span>前线战报</span>
+                <strong id="mission-status-title">本关战况</strong>
+              </span>
+              <button
+                id="mission-toggle-button"
+                class="mission-toggle-button"
+                type="button"
+                aria-controls="mission-status-body"
+                aria-expanded="false"
+                aria-keyshortcuts="G"
+              >任务</button>
+            </header>
+
+            <div id="mission-status-body" class="mission-status-body" hidden>
+              <section class="mission-objective-block" aria-label="过关目标">
+                <span>过关目标</span>
+                <strong id="mission-objective">击倒全部松鼠</strong>
+                <small id="mission-objective-detail">清除据点内的所有目标</small>
+              </section>
+
+              <div class="mission-progress-list">
+                <section class="mission-progress-row" aria-label="松鼠消灭进度">
+                  <div><span>松鼠消灭</span><b id="mission-squirrel-progress">0 / 0</b></div>
+                  <progress id="mission-squirrel-meter" max="1" value="0" aria-label="松鼠消灭进度"></progress>
+                </section>
+                <section id="mission-structure-row" class="mission-progress-row structure-progress-row" aria-label="建筑破坏或坍塌进度">
+                  <div><span id="mission-structure-label">建筑破坏</span><b id="mission-structure-progress">0 / 0</b></div>
+                  <progress id="mission-structure-meter" max="1" value="0" aria-label="建筑破坏或坍塌进度"></progress>
+                  <small id="mission-structure-requirement">暂无额外坍塌要求</small>
+                </section>
+              </div>
+
+              <section
+                id="mission-contract"
+                class="mission-contract"
+                aria-labelledby="mission-contract-label"
+                aria-describedby="mission-contract-detail"
+                aria-live="polite"
+                hidden
+              >
+                <header>
+                  <span>秘境契约</span>
+                  <b id="mission-contract-progress">0 / 1</b>
+                </header>
+                <strong id="mission-contract-label">额外挑战</strong>
+                <small id="mission-contract-detail">完成契约可获得秘境徽记</small>
+                <div
+                  class="mission-contract-meter"
+                  role="progressbar"
+                  aria-labelledby="mission-contract-label"
+                  aria-describedby="mission-contract-detail"
+                  aria-valuemin="0"
+                  aria-valuemax="1"
+                  aria-valuenow="0"
+                ><span id="mission-contract-fill"></span></div>
+              </section>
+
+              <section class="mission-stars" aria-label="星级余弹条件">
+                <header><span>星级余弹</span><small id="mission-shots-remaining">剩余 0 枚</small></header>
+                <ol>
+                  <li id="mission-star-1" data-earned="false" tabindex="0" aria-describedby="mission-star-tooltip"><span>1 星</span><b id="mission-star-1-condition">完成目标</b></li>
+                  <li id="mission-star-2" data-earned="false" tabindex="0" aria-describedby="mission-star-tooltip"><span>2 星</span><b id="mission-star-2-condition">余弹 ≥ 1</b></li>
+                  <li id="mission-star-3" data-earned="false" tabindex="0" aria-describedby="mission-star-tooltip"><span>3 星</span><b id="mission-star-3-condition">余弹 ≥ 2</b></li>
+                </ol>
+              </section>
+
+              <footer class="mission-wind">
+                <span>风向 / 风力</span>
+                <strong><i id="mission-wind-arrow" aria-hidden="true">→</i><span id="mission-wind-direction">静风</span></strong>
+                <b id="mission-wind-level">0 级</b>
+              </footer>
+            </div>
+          </aside>
+
+          <div id="mission-star-tooltip" class="mission-star-tooltip" role="tooltip" hidden>
+            <strong id="mission-star-tooltip-title">星级条件</strong>
+            <span id="mission-star-tooltip-copy">完成本关目标</span>
+          </div>
+
+          <div id="screen-panel" class="screen-panel"></div>
+          <div id="banner" class="banner" role="status" aria-live="polite"></div>
+          <div id="achievement" class="achievement" role="status" aria-live="polite"></div>
+          <div id="coachmark" class="coachmark" role="status" aria-live="polite" hidden>
+            <span id="coachmark-step" class="coachmark-step">01</span>
+            <span><strong id="coachmark-title">向后拉动橡宝</strong><small id="coachmark-copy">松手后沿预测轨迹飞行</small></span>
+          </div>
+
+        </div>
+
+        <div id="game-instructions" class="control-deck">
+          <div class="control-item">
+            <span class="control-index">01</span>
+            <span><b>拖拽 · 松开</b><small>瞄准并发射</small></span>
+          </div>
+          <div class="control-item">
+            <span class="control-index">02</span>
+            <span><b id="skill-control-title">点击 · 空格</b><small id="skill-control-copy">触发飞行技能</small></span>
+          </div>
+          <div class="control-item">
+            <span class="control-index">03</span>
+            <span><b><span class="desktop-control">方向键 · Enter</span><span class="touch-control">顶部按钮</span></b><small>键盘瞄准并发射</small></span>
+          </div>
+        </div>
+
+        <div
+          id="discovery-card"
+          class="discovery-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="discovery-title"
+          aria-describedby="discovery-summary discovery-lore discovery-tip"
+          hidden
+        >
+          <article class="discovery-sheet">
+            <div id="discovery-art" class="discovery-art" aria-hidden="true"></div>
+            <div class="discovery-copy">
+              <p id="discovery-category" class="eyebrow">新图鉴</p>
+              <h2 id="discovery-title">新的远征发现</h2>
+              <p id="discovery-summary" class="discovery-summary"></p>
+              <span id="discovery-action" class="discovery-action"></span>
+              <p id="discovery-tip" class="discovery-tip"></p>
+              <section class="discovery-lore-block" aria-label="橡心王国档案故事">
+                <span>橡心王国档案</span>
+                <p id="discovery-lore" class="discovery-lore"></p>
+              </section>
+            </div>
+            <footer class="discovery-footer">
+              <span id="discovery-page">图鉴 1 / 1</span>
+              <button id="discovery-continue-button" class="primary-button" type="button">知道了</button>
+            </footer>
+          </article>
+        </div>
+
+        <div
+          id="emergency-supply-card"
+          class="emergency-supply-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="emergency-supply-title"
+          aria-describedby="emergency-supply-copy"
+          hidden
+        >
+          <section class="emergency-supply-sheet">
+            <header class="emergency-supply-heading">
+              <p class="eyebrow">橡木营地 · 最后补给</p>
+              <h2 id="emergency-supply-title">橡果已经耗尽</h2>
+              <p id="emergency-supply-copy">本关只能呼叫一次补给；再次耗尽后，远征将立即结束。</p>
+              <strong id="emergency-supply-balance">持有 0 枚金橡果</strong>
+            </header>
+            <div class="emergency-supply-options" aria-label="选择紧急补给">
+              <button id="emergency-supply-small" class="supply-option" type="button">
+                <span class="supply-price"><b>1</b> 枚金橡果</span>
+                <strong>应急小袋</strong>
+                <small>购买 2 枚当前关卡随机橡果</small>
+              </button>
+              <button id="emergency-supply-large" class="supply-option featured" type="button">
+                <span class="supply-price"><b>5</b> 枚金橡果</span>
+                <strong>远征补给箱</strong>
+                <small>购买 6 枚当前关卡随机橡果</small>
+              </button>
+            </div>
+            <button id="emergency-supply-decline" class="danger-text-button" type="button">放弃补给 · 结束本局</button>
+          </section>
+        </div>
+
+        <div
+          id="talent-library-card"
+          class="talent-library-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="talent-library-title"
+          aria-describedby="talent-library-summary"
+          hidden
+        >
+          <section class="talent-library-sheet">
+            <header class="talent-library-heading">
+              <div>
+                <p class="eyebrow">远征档案 · 天赋</p>
+                <h2 id="talent-library-title">本次远征天赋</h2>
+                <p id="talent-library-summary">查看已获得天赋及其在本次远征中的实际效果。</p>
+              </div>
+              <button id="talent-library-close-button" class="talent-library-close-button" type="button">关闭</button>
+            </header>
+            <div id="talent-library-list" class="talent-library-list" role="list" aria-label="已获得天赋列表"></div>
+          </section>
+        </div>
+
+        <div
+          id="pause-card"
+          class="pause-card"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pause-title"
+          hidden
+        >
+          <div class="settings-sheet">
+            <header class="settings-heading">
+              <p class="eyebrow">设置与进度</p>
+              <strong id="pause-title">远征设置</strong>
+              <span id="pause-subtitle">调整你的远征体验，进度会自动保存</span>
+            </header>
+            <div class="settings-grid" aria-label="游戏偏好">
+              <button id="settings-sound-button" class="setting-row" type="button">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 8.2a5 5 0 0 1 0 7.6M18.7 5.6a8.6 8.6 0 0 1 0 12.8"/></svg></span>
+                <span><b>声音</b><small>背景音乐与材质碰撞音效</small></span>
+                <em id="settings-sound-value">开启</em>
+              </button>
+              <label class="setting-row volume-setting" for="settings-music-volume">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></span>
+                <span><b>背景音乐</b><small>剧情、营地与战斗配乐</small></span>
+                <span class="volume-control"><input id="settings-music-volume" type="range" min="0" max="100" step="5" value="50" aria-label="背景音乐音量"><em id="settings-music-volume-value">50%</em></span>
+              </label>
+              <label class="setting-row volume-setting" for="settings-sfx-volume">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="m5 8 3 3-3 3M19 5l-4 4M19 19l-4-4"/><path d="M10 5v14M14 4v16"/></svg></span>
+                <span><b>游戏音效</b><small>发射、命中、倒塌与界面反馈</small></span>
+                <span class="volume-control"><input id="settings-sfx-volume" type="range" min="0" max="100" step="5" value="90" aria-label="游戏音效音量"><em id="settings-sfx-volume-value">90%</em></span>
+              </label>
+              <button id="settings-aim-button" class="setting-row" type="button">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M4 17c3.2-7.8 7.2-9.8 12-6 1.5 1.2 2.7.8 4-.8"/><path d="M5 17h.01M11 11h.01M17 12h.01"/></svg></span>
+                <span><b>弹道模式</b><small>有弹道忽略横风；新手弹道显示实际轨迹</small></span>
+                <em id="settings-aim-value">有弹道</em>
+              </button>
+              <button id="settings-shake-button" class="setting-row" type="button">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="m5 8-2 4 2 4M19 8l2 4-2 4M9 6l-2 6 2 6M15 6l2 6-2 6"/></svg></span>
+                <span><b>镜头震动</b><small>增强撞击与爆炸反馈</small></span>
+                <em id="settings-shake-value">开启</em>
+              </button>
+              <button id="settings-motion-button" class="setting-row" type="button" aria-pressed="false">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/><path d="M4 5h3M17 19h3"/></svg></span>
+                <span><b>减少动态效果</b><small>减弱界面过渡、环境粒子和镜头震动</small></span>
+                <em id="settings-motion-value">跟随系统</em>
+              </button>
+              <button id="settings-story-button" class="setting-row" type="button">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H19v17H8.5A3.5 3.5 0 0 0 5 22V5.5Z"/><path d="M5 5.5V22M9 7h6M9 11h7"/></svg></span>
+                <span><b>已读剧情</b><small>重玩时跳过已经看过的故事</small></span>
+                <em id="settings-story-value">播放</em>
+              </button>
+              <button id="fullscreen-button" class="setting-row" type="button">
+                <span class="setting-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg></span>
+                <span><b>全屏显示</b><small>沉浸式展开远征地图</small></span>
+                <em id="fullscreen-value">进入</em>
+              </button>
+            </div>
+            <div class="settings-actions">
+              <button id="resume-button" type="button" class="primary-button">继续远征</button>
+              <button id="settings-restart-button" type="button" class="secondary-button" hidden>重开本关</button>
+              <button id="return-menu-button" type="button" class="secondary-button">返回营地</button>
+              <button id="exit-game-button" type="button" class="danger-button">离开游戏</button>
+              <button id="reset-save-button" class="text-button" type="button">重置本地记录</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-note">
+        <span>橡心王国 · 远征档案</span>
+        <span>原创作者：<a href="https://github.com/myflww" target="_blank" rel="noopener noreferrer">myflww</a> · <a href="https://github.com/myflww/acorn-expedition" target="_blank" rel="noopener noreferrer">GitHub 原项目</a> · 仅限非商业使用</span>
+        <span id="save-status-note">远征记录自动封存于本机</span>
+      </footer>
+    </main>
+
+    <script type="module" src="./src/game.js"></script>
+  </body>
+</html>

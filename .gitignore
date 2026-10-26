@@ -1,0 +1,17 @@
+.DS_Store
+node_modules/
+coverage/
+dist/
+build/
+.cache/
+.env
+.env.*
+!.env.example
+*.log
+*.bak
+*.old
+*.orig
+*.tmp
+*~
+qa-*.png
+design-qa*

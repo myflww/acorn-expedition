@@ -1,0 +1,25 @@
+{
+  "name": "acorn-expedition",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An original Canvas and Web Audio physics adventure game by myflww.",
+  "scripts": {
+    "dev": "node serve.mjs",
+    "test": "node --test",
+    "check": "node --check serve.mjs && node --check src/boot-check.js && node --check src/discoveries.js && node --check src/talent-icons.js && node --check src/terrain-rules.js && node --check src/main-architecture-blueprints.js && node --check src/special-backgrounds.js && node --check src/special-architecture-templates.js && node --check src/special-roster.js && node --check src/special-campaigns.js && node --check src/special-challenges.js && node --check src/special-levels.js && node --check src/game-core.js && node --check src/daily-challenges.js && node --check src/run-slots.js && node --check src/failure-aid.js && node --check src/audio.js && node --check src/game.js && node --test"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "author": "myflww",
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myflww/acorn-expedition.git"
+  },
+  "bugs": {
+    "url": "https://github.com/myflww/acorn-expedition/issues"
+  },
+  "homepage": "https://github.com/myflww/acorn-expedition#readme"
+}
